@@ -1,18 +1,13 @@
 package hiber.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MapsId;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name = "users")
@@ -20,7 +15,6 @@ import static javax.persistence.FetchType.LAZY;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
@@ -31,7 +25,8 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToOne
+    @MapsId
     private Car car;
 
     public User() {
@@ -87,12 +82,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-               "id=" + id +
-               ", firstName='" + firstName + '\'' +
-               ", lastName='" + lastName + '\'' +
-               ", email='" + email + '\'' +
-               ", car=" + car +
-               '}';
+        return "User{" + "id=" + id +
+               ", firstName='" + firstName +
+               '\'' + ", lastName='" + lastName +
+               '\'' + ", email='" + email +
+               '\'' + ", car=" + car + '}';
     }
 }
